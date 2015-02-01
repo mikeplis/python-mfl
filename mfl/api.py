@@ -7,7 +7,6 @@ import datetime
 def convert_to_timestamp(date):
     return time.mktime(datetime.datetime.strptime(date, "%d/%m/%Y").timetuple())
 
-
 class Api:
 
     _logged_in = False
@@ -367,3 +366,66 @@ class Api:
     def salary_adjustments(self, league_id):
         params = {'TYPE': 'salaryAdjustments', 'L': league_id}
         return self._export(params)
+
+    def franchises(self):
+        pass
+
+    def draft_results(self):
+        pass
+
+    def auction_results(self):
+        pass
+
+    def salaries(self):
+        pass
+
+    def accounting(self):
+        pass
+
+    def franchise_score_adjustment(self):
+        pass
+
+    def player_score_adjustment(self):
+        pass
+
+    def message_board(self):
+        pass
+
+    def lineup(self):
+        pass
+
+    def fcfs_waiver(self):
+        pass
+
+    def waiver_request(self):
+        pass
+
+    def ir(self):
+        pass
+
+    def taxi_squad(self):
+        pass
+
+    def my_watch_list(self):
+        pass
+
+    def poll_vote(self):
+        pass
+
+    def trade_proposal(self):
+        pass
+
+    def trade_response(self):
+        pass
+
+    def survivor_pool_pick(self):
+        pass
+
+    def pool_picks(self):
+        pass
+
+    def calendar_event(self):
+        pass
+
+    def email_message(self):
+        pass
