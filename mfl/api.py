@@ -551,8 +551,3 @@ class Api:
 
     def email_message(self):
         pass
-
-if __name__ == '__main__':
-    api = Api(2014)
-    api.login('67486', '0001', sys.argv[1])
-    print(api.lineup(17, [9448, 9823]))
