@@ -14,19 +14,15 @@ def concat(values):
 class Api:
 
     def __init__(self, year):
-        opener = urllib2.build_opener()
         mfl_url = 'http://football.myfantasyleague.com'
-        self.opener = opener
-        self.mfl_import_url = '{}/{}/import'.format(mfl_url, year)
         self.mfl_export_url = '{}/{}/export'.format(mfl_url, year)
-        self.mfl_login_url = '{}/{}/login'.format(mfl_url, year)
 
     def _export(self, params, json=True):
         if json:
             params['JSON'] = 1
         encoded_params = urllib.urlencode(params)
         url = '{}?{}'.format(self.mfl_export_url, encoded_params)
-        resp = self.opener.open(url)
+        resp = urllib2.urlopen(url)
         return resp.read()
 
     def players(self, players=None, since=None, details=False):
