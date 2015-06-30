@@ -389,16 +389,16 @@ class Api:
     def franchises(self):
         pass
 
-    def draft_results(self):
+    def draft_results_import(self):
         pass
 
-    def auction_results(self):
+    def auction_results_import(self):
         pass
 
     def salaries(self):
         pass
 
-    def accounting(self, franchise_id, amount, description):
+    def accounting_import(self, franchise_id, amount, description):
         params = {
             'TYPE': 'accounting',
             'FRANCHISE_ID': franchise_id,
@@ -430,7 +430,7 @@ class Api:
         }
         return self._import(params)
 
-    def message_board(self, body, thread=None, subject=None):
+    def message_board_import(self, body, thread=None, subject=None):
         params = {
             'TYPE': 'messageBoard',
             'BODY': body,
@@ -489,7 +489,7 @@ class Api:
             params['DEMOTE'] = concat(demote)
         return self._import(params)
 
-    def my_watch_list(self, add=None, remote=None):
+    def my_watch_list_import(self, add=None, remote=None):
         params = {'TYPE': 'myWatchList', 'L': self.league_id}
         if add is not None:
             params['ADD'] = ','.join([str(pid) for pid in add])
