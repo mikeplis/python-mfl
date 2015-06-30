@@ -136,8 +136,8 @@ class Api:
             params['FRANCHISE'] = franchise_id
         return self._export(params)
 
-    def standings(self, league_id):
-        params = {'TYPE': 'standings', 'L': league_id}
+    def league_standings(self, league_id):
+        params = {'TYPE': 'leagueStandings', 'L': league_id}
         return self._export(params)
 
     def weekly_results(self, league_id, week=None):
