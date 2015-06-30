@@ -8,7 +8,6 @@ import sys
 def convert_to_timestamp(date_string):
     return time.mktime(datetime.datetime.strptime(date_string, "%m/%d/%Y").timetuple())
 
-# TODO: use this
 def concat(values):
     return ','.join([str(s) for s in values])
 
@@ -66,7 +65,7 @@ class Api:
             timestamp = convert_to_timestamp(since)
             params['SINCE'] = timestamp
         if players is not None:
-            params['PLAYERS'] = ','.join([str(pid) for pid in players])
+            params['PLAYERS'] = concat(players)
         return self._export(params)
 
     def all_rules(self):
@@ -198,7 +197,7 @@ class Api:
         if week is not None:
             params['W'] = week
         if players is not None:
-            params['PLAYERS'] = ','.join([str(pid) for pid in players])
+            params['PLAYERS'] = concat(players)
         if count is not None:
             params['COUNT'] = count
         if position is not None:
@@ -264,7 +263,7 @@ class Api:
         params = {
             'TYPE': 'projectedScores',
             'L': league_id,
-            'PLAYERS': ','.join([str(pid) for pid in players])
+            'PLAYERS': concat(players)
         }
         if week is not None:
             params['W'] = week
@@ -297,14 +296,14 @@ class Api:
     def player_profile(self, players):
         params = {
             'TYPE': 'playerProfile',
-            'P': ','.join([str(pid) for pid in players])
+            'P': concat(players)
         }
         return self._export(params)
 
     def player_status(self, players):
         params = {
             'TYPE': 'playerStatus',
-            'P': ','.join([str(pid) for pid in players])
+            'P': concat(players)
         }
         return self._export(params)
 
@@ -353,7 +352,7 @@ class Api:
         if week is not None:
             params['W'] = week
         if players is not None:
-            params['PLAYERS'] = ','.join([str(pid) for pid in players])
+            params['PLAYERS'] = concat(players)
         return self._export(params)
 
     def polls(self, league_id):
@@ -446,29 +445,29 @@ class Api:
         params = {
             'TYPE': 'lineup',
             'W': week,
-            'STARTERS': ','.join([str(pid) for pid in starters]),
+            'STARTERS': concat(starters),
             'COMMENTS': comments,
             'L': self.league_id
         }
         if tiebreakers is not None:
-            params['TIEBREAKERS'] = ','.join([str(pid) for pid in tiebreakers])
+            params['TIEBREAKERS'] = concat(tiebreakers)
         if backups is not None:
-            params['BACKUPS'] = ','.join([str(pid) for pid in backups])
+            params['BACKUPS'] = concat(backups)
         return self._import(params)
 
     def fcfs_waiver(self, add=None, drop=None):
         params = {'TYPE': 'fcfsWaiver', 'L': self.league_id}
         if add is not None:
-            params['ADD'] = ','.join([str(pid) for pid in add])
+            params['ADD'] = concat(add)
         if drop is not None:
-            params['DROP'] = ','.join([str(pid) for pid in drop])
+            params['DROP'] = concat(drop)
         return self._import(params)
 
     def waiver_request(self, round_, picks):
         params = {
             'TYPE': 'waiverRequest',
             'ROUND': round_,
-            'PICKS': ','.join([str(pid) for pid in picks]),
+            'PICKS': concat(picks),
             'L': self.league_id
         }
         return self._import(params)
@@ -492,9 +491,9 @@ class Api:
     def my_watch_list_import(self, add=None, remote=None):
         params = {'TYPE': 'myWatchList', 'L': self.league_id}
         if add is not None:
-            params['ADD'] = ','.join([str(pid) for pid in add])
+            params['ADD'] = concat(add)
         if drop is not None:
-            params['DROP'] = ','.join([str(pid) for pid in drop])
+            params['DROP'] = concat(drop)
         return self._import(params)
 
     def poll_vote(self, poll_id, answer_id):
