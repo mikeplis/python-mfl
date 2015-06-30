@@ -5,8 +5,8 @@ import time
 import datetime
 import sys
 
-def convert_to_timestamp(date):
-    return time.mktime(datetime.datetime.strptime(date, "%d/%m/%Y").timetuple())
+def convert_to_timestamp(date_string):
+    return time.mktime(datetime.datetime.strptime(date_string, "%m/%d/%Y").timetuple())
 
 # TODO: use this
 def concat(values):
