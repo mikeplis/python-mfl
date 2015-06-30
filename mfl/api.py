@@ -56,6 +56,8 @@ class Api:
         self.franchise_id = franchise_id
         self._logged_in = True # may not be needed
 
+    # export endpoints 
+
     def players(self, players=None, since=None, details=False):
         params = {'TYPE': 'players'}
         if details:
@@ -381,6 +383,8 @@ class Api:
     def salary_adjustments(self, league_id):
         params = {'TYPE': 'salaryAdjustments', 'L': league_id}
         return self._export(params)
+
+    # import endpoints
 
     def franchises(self):
         pass
