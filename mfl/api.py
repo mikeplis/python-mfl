@@ -23,7 +23,7 @@ class Api:
         encoded_params = urllib.urlencode(params)
         url = '{}?{}'.format(self.mfl_export_url, encoded_params)
         resp = urllib2.urlopen(url)
-        return resp.read()
+        return json.loads(resp.read())
 
     def players(self, players=None, since=None, details=False):
         params = {'TYPE': 'players'}
