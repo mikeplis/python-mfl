@@ -122,10 +122,6 @@ class Api:
             params['FRANCHISE_ID'] = franchise_id # must be in form of '0001'
         return self._export(params)
 
-    def my_leagues(self):
-        params = {'TYPE': 'myleagues'}
-        return self._export(params)
-
     def rules(self, league_id):
         params = {'TYPE': 'rules', 'L': league_id}
         return self._export(params)
