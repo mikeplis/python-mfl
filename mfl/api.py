@@ -1,18 +1,7 @@
-import urllib
-import urllib2
-import xml.etree.ElementTree as ET
-import json
-import time
-import datetime
-import sys
+import requests
+from util import *
 
 """A library that provides a Python interface to the MyFantasyLeague (MFL) API."""
-
-def convert_to_timestamp(date_string):
-    return time.mktime(datetime.datetime.strptime(date_string, "%m/%d/%Y").timetuple())
-
-def concat(values):
-    return ','.join([str(s) for s in values])
 
 class Api:
     """A python interface to the MFL export API."""
@@ -22,10 +11,8 @@ class Api:
 
         Args:
             year (int): The year to get data for (e.g. 2013).
-
         """
-        mfl_url = 'http://football.myfantasyleague.com'
-        self.mfl_export_url = '{}/{}/export'.format(mfl_url, year)
+        self.mfl_export_url = 'http://football.myfantasyleague.com/{}/export'.format(year)
 
     def _export(self, params):
         """Send request to MFL API and return result.
@@ -39,10 +26,7 @@ class Api:
             dict: Dictionary containing JSON data
         """
         params['JSON'] = 1
-        encoded_params = urllib.urlencode(params)
-        url = '{}?{}'.format(self.mfl_export_url, encoded_params)
-        resp = urllib2.urlopen(url)
-        return json.loads(resp.read())
+        return requests.get(self.mfl_export_url, params=params).json()
 
     def players(self, players=None, since=None, details=False):
         """Return player ID's and players in the MFL database.
