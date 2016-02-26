@@ -6,7 +6,7 @@ import time
 import datetime
 import sys
 
-"""A library that provides a Python interface to the MFL API."""
+"""A library that provides a Python interface to the MyFantasyLeague (MFL) API."""
 
 def convert_to_timestamp(date_string):
     return time.mktime(datetime.datetime.strptime(date_string, "%m/%d/%Y").timetuple())
@@ -54,7 +54,6 @@ class Api:
             since (str): Date from which the function should return updates. Should be formatted as mm/dd/yyyy.
             details (bool): If True, returns extra information including weight, birthdate, draft year, and ID on other
                 sites like Rotoworld, ESPN, and CBS.
-
         """
         params = {'TYPE': 'players'}
         if details:
@@ -71,7 +70,6 @@ class Api:
 
         Contains information about whether a scoring rule is scored for players, coaches, and/or teams. Also contains the
         abbreviation for each rule that is returned as part of the `rules` function.
-
         """
         params = {'TYPE': 'allRules'}
         return self._export(params)
@@ -425,7 +423,7 @@ class Api:
         params = {'TYPE': 'transactions', 'L': league_id}
         if transaction_type is not None:
             params['TRANS_TYPE'] = transaction_type.upper()
-        if franchise is not None:
+        if franchise_id is not None:
             params['FRANCHISE'] = franchise
         if days is not None:
             params['DAYS'] = days
@@ -544,6 +542,7 @@ class Api:
         """
         params = {
             'TYPE': 'playerStatus',
+            'L': league_id,
             'P': concat(players)
         }
         return self._export(params)
