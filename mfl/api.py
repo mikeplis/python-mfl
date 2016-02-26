@@ -75,8 +75,8 @@ class Api:
     def nfl_schedule(self, week=None):
         """Return NFL schedule information
 
-        Returns information about each game for a particular week including kickoff time, teams involved, team rankings
-        spread, and time remaining.
+        Returns information about each game for a particular week including kickoff time, teams involved, spread, 
+        offense/defense rankings, and time remaining.
 
         Args:
             week (int): NFL week to get schedule information for. If no value is provided, the most recent week is used.
@@ -202,8 +202,8 @@ class Api:
         """Return basic league parameters.
 
         Returns information like league name, roster sizes, and starting lineup requirements. If a valid password
-        and franchise_id combination are supplied, it also returns otherwise private information about the owners
-        like names and email addresses
+        and franchise_id combination are supplied, it also returns otherwise private information about the league
+        owners like names and email addresses
 
         Args:
             league_id (int): 5-digit league ID
@@ -638,7 +638,7 @@ class Api:
         params = {'TYPE': 'appearance', 'L': league_id}
         return self._export(params)
 
-    def tradeable_assets(self, league_id):
+    def assets(self, league_id):
         """Return all tradeable assets for all franchises.
 
         Include players, current year draft picks, and future draft picks
