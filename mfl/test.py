@@ -1,137 +1,317 @@
 import unittest
 from api import Api
+import requests
+
+class TestApi(Api):
+  """Test implementation of MFL API that returns requests.Response from all methods instead of dict
+
+  Returning requests.Response from all methods allows for testing of things like the request's status code
+  """
+  def _export(self, params):
+    params['JSON'] = 1
+    return requests.get(self.mfl_export_url, params=params)
 
 class TestMflApiMethods(unittest.TestCase):
   def setUp(self):
-    self.api = Api(2015)
+    self.api = TestApi(2015)
     self.league_id = 35465
     self.players = [7260, 6997]
 
   def test_players(self):
-    self.api.players()
+    resp = self.api.players()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue('players' in json)
+    self.assertTrue('player' in json['players'])
+    self.assertTrue(json['players']['player'])
 
   def test_all_rules(self):
-    self.api.all_rules()
+    resp = self.api.all_rules()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_injuries(self):
-    self.api.injuries()
+    resp = self.api.injuries()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_nfl_schedule(self):
-    self.api.nfl_schedule()
+    resp = self.api.nfl_schedule()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_adp(self):
-    self.api.adp()
+    resp = self.api.adp()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_aav(self):
-    self.api.aav()
+    resp = self.api.aav()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_top_adds(self):
-    self.api.top_adds()
+    resp = self.api.top_adds()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_top_drops(self):
-    self.api.top_drops()
+    resp = self.api.top_drops()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_top_starters(self):
-    self.api.top_starters()
+    resp = self.api.top_starters()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_top_owns(self):
-    self.api.top_owns()
+    resp = self.api.top_owns()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_league(self):
-    self.api.league(self.league_id)
+    resp = self.api.league(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_rules(self):
-    self.api.rules(self.league_id)
+    resp = self.api.rules(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_rosters(self):
-    self.api.rosters(self.league_id)
+    resp = self.api.rosters(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_league_standings(self):
-    self.api.league_standings(self.league_id)
+    resp = self.api.league_standings(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_weekly_results(self):
-    self.api.weekly_results(self.league_id)
+    resp = self.api.weekly_results(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_live_scoring(self):
-    self.api.live_scoring(self.league_id)
+    resp = self.api.live_scoring(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_player_scores(self):
-    self.api.player_scores(self.league_id)
+    resp = self.api.player_scores(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_draft_results(self):
-    self.api.draft_results(self.league_id)
+    resp = self.api.draft_results(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_future_draft_picks(self):
-    self.api.future_draft_picks(self.league_id)
+    resp = self.api.future_draft_picks(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_auction_results(self):
-    self.api.auction_results(self.league_id)
+    resp = self.api.auction_results(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_free_agents(self):
-    self.api.free_agents(self.league_id)
+    resp = self.api.free_agents(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_transactions(self):
-    self.api.transactions(self.league_id)
+    resp = self.api.transactions(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_rss(self):
-    self.api.rss(self.league_id)
+    resp = self.api.rss(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_site_news(self):
-    self.api.site_news()
+    resp = self.api.site_news()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_projected_scores(self):
-    self.api.projected_scores(self.league_id, self.players)
+    resp = self.api.projected_scores(self.league_id, self.players)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_league_search(self):
-    self.api.league_search('asdf')
+    resp = self.api.league_search('asdf')
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_message_board(self):
-    self.api.message_board(self.league_id)
+    resp = self.api.message_board(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_message_board_thread(self):
-    self.api.message_board_thread(self.league_id, 3571222)
+    resp = self.api.message_board_thread(self.league_id, 3571222)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_player_profile(self):
-    self.api.player_profile(self.players)
+    resp = self.api.player_profile(self.players)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_player_status(self):
-    self.api.player_status(self.league_id, self.players)
+    resp = self.api.player_status(self.league_id, self.players)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_accounting(self):
-    self.api.accounting(self.league_id)
+    resp = self.api.accounting(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_calendar(self):
-    self.api.calendar(self.league_id)
+    resp = self.api.calendar(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_points_allowed(self):
-    self.api.points_allowed(self.league_id)
+    resp = self.api.points_allowed(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_trade_bait(self):
-    self.api.trade_bait(self.league_id)
+    resp = self.api.trade_bait(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_who_should_i_start(self):
-    self.api.who_should_i_start()
+    resp = self.api.who_should_i_start()
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_polls(self):
-    self.api.polls(self.league_id)
+    resp = self.api.polls(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_survivor_pool(self):
-    self.api.survivor_pool(self.league_id)
+    resp = self.api.survivor_pool(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_pool(self):
-    self.api.pool(self.league_id)
+    resp = self.api.pool(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_playoff_brackets(self):
-    self.api.playoff_brackets(self.league_id)
+    resp = self.api.playoff_brackets(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_appearance(self):
-    self.api.appearance(self.league_id)
+    resp = self.api.appearance(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_tradeable_assets(self):
-    self.api.tradeable_assets(self.league_id)
+    resp = self.api.tradeable_assets(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
   def test_salary_adjustments(self):
-    self.api.salary_adjustments(self.league_id)
+    resp = self.api.salary_adjustments(self.league_id)
+    self.assertTrue(resp.ok)
+
+    json = resp.json()
+    self.assertTrue(True)
 
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestMflApiMethods)
